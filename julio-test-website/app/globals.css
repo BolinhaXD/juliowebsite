@@ -12,6 +12,13 @@
   --font-mono: var(--font-geist-mono);
   --font-popp: var(--font-poppins);
 
+
+  --color-primary:
+  --color-secondary:
+  --color-tertiary:
+  --color-quaternary:
+  --color-quinary:
+
   /* Deep Crimson */
   --deep-crimson-50: #fbeaea;
   --deep-crimson-100: #f7d5d4;
@@ -109,7 +116,7 @@ body {
 }
 
 .swiper-pagination {
-    bottom: 20px;
+  bottom: 20px;
 }
 
 html {
