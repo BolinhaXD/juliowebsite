@@ -4,6 +4,7 @@ import Image from "next/image";
 import MyFooter from "../../components/MyFooter";
 import Contacts from "../../components/Contacts";
 import Navbar from "../../components/Navbar";
+import { antesDepoisImages } from "../../data/antesdepoisImages"
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
@@ -19,78 +20,10 @@ export default function Home() {
     { id: "outros", label: "Outros" },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Projeto Casa de Banho",
-      subtitle: "Renovação de Casa de Banho – Lisboa",
-      location: "Lisboa",
-      duration: "3 semanas",
-      before: "/remodelacoes-fotos/projeto1-antes.jpg",
-      after: "/remodelacoes-fotos/projeto1-depois.jpg",
-      category: "casa-de-banho",
-      categoryLabel: "Casa de Banho",
-      description:
-        "Remodelação completa de casa de banho com substituição de revestimentos, louças sanitárias, torneiras e iluminação, criando um espaço moderno e funcional.",
-    },
-    {
-      id: 2,
-      title: "Projeto Sala",
-      subtitle: "Atualização de Sala de Estar – Amadora",
-      location: "Amadora",
-      duration: "2 semanas",
-      before: "/remodelacoes-fotos/projeto1-antes.jpg",
-      after: "/remodelacoes-fotos/projeto1-depois.jpg",
-      category: "sala",
-      categoryLabel: "Sala",
-      description:
-        "Melhoria de sala de estar com novas pinturas, pavimento e pontos de luz, para criar um ambiente mais acolhedor e confortável.",
-    },
-    {
-      id: 3,
-      title: "Projeto Quarto",
-      subtitle: "Renovação de Quarto – Odivelas",
-      location: "Odivelas",
-      duration: "1 semana",
-      before: "/remodelacoes-fotos/projeto1-antes.jpg",
-      after: "/remodelacoes-fotos/projeto1-depois.jpg",
-      category: "quarto",
-      categoryLabel: "Quarto",
-      description:
-        "Atualização completa de quarto com novas cores, pavimento e iluminação, criando um espaço relaxante e funcional.",
-    },
-    {
-      id: 4,
-      title: "Projeto Cozinha",
-      subtitle: "Remodelação de Cozinha – Lisboa",
-      location: "Lisboa",
-      duration: "4 semanas",
-      before: "/remodelacoes-fotos/projeto1-antes.jpg",
-      after: "/remodelacoes-fotos/projeto1-depois.jpg",
-      category: "cozinha",
-      categoryLabel: "Cozinha",
-      description:
-        "Reconfiguração de cozinha com novos móveis, bancada, eletrodomésticos e iluminação, otimizando o espaço para o dia a dia.",
-    },
-    {
-      id: 5,
-      title: "Projeto Exterior",
-      subtitle: "Melhoria de Espaço Exterior – Sintra",
-      location: "Sintra",
-      duration: "2 semanas",
-      before: "/remodelacoes-fotos/projeto1-antes.jpg",
-      after: "/remodelacoes-fotos/projeto1-depois.jpg",
-      category: "exterior",
-      categoryLabel: "Exterior",
-      description:
-        "Intervenção em terraço com novos revestimentos, pintura e zona de estar, criando um espaço exterior mais acolhedor.",
-    },
-  ];
-
   const filteredProjects =
     activeFilter === "all"
-      ? projects
-      : projects.filter((p) => p.category === activeFilter);
+      ? antesDepoisImages
+      : antesDepoisImages.filter((p) => p.category === activeFilter);
 
   const projectsToShow = filteredProjects.slice(0, visibleCount);
   const canShowMore = filteredProjects.length > visibleCount;
@@ -125,7 +58,7 @@ export default function Home() {
                 className={`px-3 py-1 rounded-full border text-sm transition-colors ${
                   activeFilter === filter.id
                     ? "bg-[var(--jet-black-800)] text-white border-[var(--jet-black-800)]"
-                    : "bg-white text-[var(--jet-black-800)] border-zinc-300 hover:bg-zinc-100"
+                    : "bg-white text-[var(--jet-black-800)] border-zinc-300 hover:bg-zinc-200"
                 }`}
               >
                 {filter.label}
@@ -166,7 +99,7 @@ export default function Home() {
                       <p className="mb-2 font-semibold">ANTES</p>
                       <div className="relative w-full h-40 sm:h-52 lg:h-60 overflow-hidden rounded">
                         <Image
-                          src={p.before}
+                          src={p.imgAntesSrc}
                           alt={`${p.title} antes`}
                           fill
                           className="object-cover"
@@ -177,7 +110,7 @@ export default function Home() {
                       <p className="mb-2 font-semibold">DEPOIS</p>
                       <div className="relative w-full h-40 sm:h-52 lg:h-60 overflow-hidden rounded">
                         <Image
-                          src={p.after}
+                          src={p.imgDepoisSrc}
                           alt={`${p.title} depois`}
                           fill
                           className="object-cover"
@@ -186,7 +119,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300">
+                  <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-500">
                     {p.description}
                   </p>
                 </div>
@@ -196,7 +129,7 @@ export default function Home() {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={() => setVisibleCount((prev) => prev + 4)}
-                className="px-4 py-2 rounded-full border border-[var(--jet-black-800)] text-sm font-medium text-[var(--jet-black-800)] bg-white hover:bg-zinc-100 transition-colors"
+                className="px-4 py-2 rounded-full border border-[var(--jet-black-800)] text-sm font-medium text-[var(--jet-black-800)] bg-white hover:bg-zinc-200 transition-colors"
               >
                 Ver mais projetos
               </button>
