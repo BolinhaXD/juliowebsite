@@ -1,12 +1,20 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { routes } from "../constants/routes";
 
+/** Logo path that works on every page (home, /portefolio, /portefolio/1). */
+function useLogoSrc() {
+  const [logoSrc, setLogoSrc] = useState("Logo4.png");
+  useEffect(() => {
+    const base = typeof window !== "undefined" ? window.location.origin + (process.env.NEXT_PUBLIC_BASE_PATH || "") : "";
+    setLogoSrc(`${base}/Logo4.png`);
+  }, []);
+  return logoSrc;
+}
+
 export default function MyFooter() {
-  const pathname = usePathname();
-  const pathDepth = pathname.split("/").filter(Boolean).length;
-  const logoSrc = pathDepth === 0 ? "Logo4.png" : "../".repeat(pathDepth) + "Logo4.png";
+  const logoSrc = useLogoSrc();
 
   return (
     <footer className="w-full bg-[var(--jet-black-900)] text-white mt-auto">

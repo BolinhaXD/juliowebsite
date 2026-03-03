@@ -1,18 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
+/** Logo path that works on every page (home, /portefolio, /portefolio/1). */
+function useLogoSrc() {
+  const pathname = usePathname();
+  const [logoSrc, setLogoSrc] = useState("Logo4.png");
+  useEffect(() => {
+    const base = typeof window !== "undefined" ? window.location.origin + (process.env.NEXT_PUBLIC_BASE_PATH || "") : "";
+    setLogoSrc(`${base}/Logo4.png`);
+  }, [pathname]);
+  return logoSrc;
+}
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const logoSrc = useLogoSrc();
 
   const isPortfolio = pathname.startsWith(routes.portefolio);
   const isHome = pathname === "/";
-  const pathDepth = pathname.split("/").filter(Boolean).length;
-  const logoSrc = pathDepth === 0 ? "Logo4.png" : "../".repeat(pathDepth) + "Logo4.png";
 
   const baseNavLinkClasses =
     "relative text-[var(--jet-black-800)] text-2xl font-medium pb-1 transition-colors hover:text-[var(--jet-black-400)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[var(--jet-black-800)] after:transition-all after:duration-300 after:w-0 hover:after:w-full";
