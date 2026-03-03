@@ -12,6 +12,11 @@ export default function Navbar() {
   const isPortfolio = pathname.startsWith(routes.portefolio);
   const isHome = pathname === "/";
 
+  // On nested routes (e.g. /portefolio/1), resolve logo from site root
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const logoSrc =
+    pathSegments.length === 0 ? "Logo4.png" : `${pathSegments.map(() => "..").join("/")}/Logo4.png`;
+
   const baseNavLinkClasses =
     "relative text-[var(--jet-black-800)] text-2xl font-medium pb-1 transition-colors hover:text-[var(--jet-black-400)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[var(--jet-black-800)] after:transition-all after:duration-300 after:w-0 hover:after:w-full";
 
@@ -25,7 +30,7 @@ export default function Navbar() {
         {/* Logo on the left */}
         <div className="py-4">
           <Link href="/" className="block w-[100px]">
-            <img src="Logo4.png" alt="My Logo" className="h-auto w-full" width={100} height={80} />
+            <img src={logoSrc} alt="My Logo" className="h-auto w-full" width={100} height={80} />
           </Link>
         </div>
 

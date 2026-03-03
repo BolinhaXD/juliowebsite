@@ -1,8 +1,14 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
 export default function MyFooter() {
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const logoSrc =
+    pathSegments.length === 0 ? "Logo4.png" : `${pathSegments.map(() => "..").join("/")}/Logo4.png`;
+
   return (
     <footer className="w-full bg-[var(--jet-black-900)] text-white mt-auto">
       <div className="max-w-6xl mx-auto px-6 py-8 md:py-10">
@@ -10,7 +16,7 @@ export default function MyFooter() {
           {/* Logo e tagline */}
           <div className="sm:col-span-1">
             <Link href="/" className="inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded">
-              <img src="Logo4.png" alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
+              <img src={logoSrc} alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
             </Link>
             <p className="text-zinc-400 text-xs mt-2 max-w-[180px]">
               Construímos confiança.
