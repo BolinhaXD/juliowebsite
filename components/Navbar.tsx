@@ -43,7 +43,7 @@ export default function Navbar() {
         {/* Logo on the left */}
         <div className="py-4">
           <Link href="/" className="block w-[100px]">
-            <img src={logoSrc} alt="My Logo" className="h-auto w-full" width={100} height={80} />
+            <img src="Logo4.png" alt="My Logo" className="h-auto w-full" width={100} height={80} />
           </Link>
         </div>
 
