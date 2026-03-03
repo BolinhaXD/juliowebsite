@@ -1,21 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
+/** Logo path that works on all pages, including with basePath (e.g. GitHub Pages /repo-name/). */
+function useLogoSrc() {
+  const pathname = usePathname();
+  const [logoSrc, setLogoSrc] = useState(() => {
+    const segs = pathname.split("/").filter(Boolean);
+    return segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`;
+  });
+
+  useEffect(() => {
+    const path = typeof window !== "undefined" ? window.location.pathname : pathname;
+    const segs = path.split("/").filter(Boolean);
+    setLogoSrc(segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`);
+  }, [pathname]);
+
+  return logoSrc;
+}
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const logoSrc = useLogoSrc();
 
   const isPortfolio = pathname.startsWith(routes.portefolio);
   const isHome = pathname === "/";
-
-  // On nested routes (e.g. /portefolio/1), resolve logo from site root
-  const pathSegments = pathname.split("/").filter(Boolean);
-  const logoSrc =
-    pathSegments.length === 0 ? "Logo4.png" : `${pathSegments.map(() => "..").join("/")}/Logo4.png`;
 
   const baseNavLinkClasses =
     "relative text-[var(--jet-black-800)] text-2xl font-medium pb-1 transition-colors hover:text-[var(--jet-black-400)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[var(--jet-black-800)] after:transition-all after:duration-300 after:w-0 hover:after:w-full";

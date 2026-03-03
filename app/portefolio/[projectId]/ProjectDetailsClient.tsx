@@ -4,6 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import MyFooter from "../../../components/MyFooter";
 import Contacts from "../../../components/Contacts";
 import Navbar from "../../../components/Navbar";
@@ -11,8 +13,25 @@ import { antesDepoisImages } from "../../../data/antesdepoisImages";
 
 type Props = { projectId: string };
 
+/** Prefix so image paths resolve to site root from this page (e.g. /portefolio/1 -> "../../"). */
+function useRootPrefix() {
+  const pathname = usePathname();
+  const [prefix, setPrefix] = useState(() => {
+    const segs = pathname.split("/").filter(Boolean);
+    return segs.length === 0 ? "" : `${segs.map(() => "..").join("/")}/`;
+  });
+  useEffect(() => {
+    const path = typeof window !== "undefined" ? window.location.pathname : pathname;
+    const segs = path.split("/").filter(Boolean);
+    setPrefix(segs.length === 0 ? "" : `${segs.map(() => "..").join("/")}/`);
+  }, [pathname]);
+  return prefix;
+}
+
 export default function ProjectDetailsClient({ projectId }: Props) {
   const project = antesDepoisImages.find((p) => String(p.id) === projectId);
+  const rootPrefix = useRootPrefix();
+  const getSrc = (path: string) => `${rootPrefix}${path.replace(/^\/+/, "")}`;
 
   if (!project) {
     return (
@@ -72,7 +91,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
                 <SwiperSlide key={index} className="!w-full min-w-0">
                   <div className="relative w-full aspect-[4/3] min-h-[200px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[400px] bg-zinc-100">
                     <Image
-                      src={src}
+                      src={getSrc(src)}
                       alt={`${project.title} – imagem ${index + 1}`}
                       fill
                       className="object-cover"
@@ -89,7 +108,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
             <div className="bg-[var(--platinum-100)] dark:bg-[var(--platinum-100)] rounded-lg shadow border border-zinc-200 overflow-hidden">
               <div className="relative w-full aspect-[4/3] min-h-[240px] bg-zinc-100">
                 <Image
-                  src={project.imgAntesSrc}
+                  src={getSrc(project.imgAntesSrc)}
                   alt={`${project.title} – antes`}
                   fill
                   className="object-cover"
@@ -104,7 +123,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
             <div className="bg-white dark:bg-[var(--platinum-100)] rounded-lg shadow border border-zinc-200 overflow-hidden">
               <div className="relative w-full aspect-[4/3] min-h-[240px] bg-zinc-100">
                 <Image
-                  src={project.imgDepoisSrc}
+                  src={getSrc(project.imgDepoisSrc)}
                   alt={`${project.title} – depois`}
                   fill
                   className="object-cover"

@@ -1,13 +1,28 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
-export default function MyFooter() {
+/** Logo path using real browser path (includes basePath) so it works on dynamic pages and GitHub Pages. */
+function useLogoSrc() {
   const pathname = usePathname();
-  const pathSegments = pathname.split("/").filter(Boolean);
-  const logoSrc =
-    pathSegments.length === 0 ? "Logo4.png" : `${pathSegments.map(() => "..").join("/")}/Logo4.png`;
+  const [logoSrc, setLogoSrc] = useState(() => {
+    const segs = pathname.split("/").filter(Boolean);
+    return segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`;
+  });
+
+  useEffect(() => {
+    const path = typeof window !== "undefined" ? window.location.pathname : pathname;
+    const segs = path.split("/").filter(Boolean);
+    setLogoSrc(segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`);
+  }, [pathname]);
+
+  return logoSrc;
+}
+
+export default function MyFooter() {
+  const logoSrc = useLogoSrc();
 
   return (
     <footer className="w-full bg-[var(--jet-black-900)] text-white mt-auto">
