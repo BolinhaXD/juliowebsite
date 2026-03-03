@@ -4,12 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { routes } from "../constants/routes";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isPortfolio = pathname.startsWith("/portefolio");
+  const isPortfolio = pathname.startsWith(routes.portefolio);
   const isHome = pathname === "/";
 
   const baseNavLinkClasses =
@@ -42,14 +43,14 @@ export default function Navbar() {
             <a href={contactHref} className={baseNavLinkClasses}>
               Contactos
             </a>
-            <a
-              href="/portefolio"
+            <Link
+              href={routes.portefolio}
               className={`${baseNavLinkClasses} ${
                 isPortfolio ? "after:w-full" : ""
               }`}
             >
               Portefólio
-            </a>
+            </Link>
           </div>
 
           {/* Hamburger button */}
@@ -116,13 +117,13 @@ export default function Navbar() {
             >
               Contacto
             </a>
-            <a
+            <Link
               onClick={() => setMenuOpen(false)}
-              href="/portefolio"
+              href={routes.portefolio}
               className="text-xl font-medium text-[var(--jet-black-800)] hover:text-[var(--jet-black-600)] transition-colors"
             >
               Portefólio
-            </a>
+            </Link>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import { routes } from "../constants/routes";
 
 export default function MyFooter() {
   return (
@@ -44,7 +45,7 @@ export default function MyFooter() {
             <h4 className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-2">Recursos</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/portefolio" className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
+                <Link href={routes.portefolio} className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
                   Portefólio
                 </Link>
               </li>

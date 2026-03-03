@@ -6,6 +6,7 @@ import Contacts from "../../components/Contacts";
 import Navbar from "../../components/Navbar";
 import { antesDepoisImages } from "../../data/antesdepoisImages"
 import Link from "next/link";
+import { routes } from "../../constants/routes";
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState<string>("all");
@@ -75,7 +76,7 @@ export default function Home() {
 
             {filteredProjects.length > 0 &&
               projectsToShow.map((p) => (
-                <Link key={p.id} href={`/portefolio/${p.id}`} className="">
+                <Link key={p.id} href={routes.portefolioProject(p.id)} className="">
                   <div
                     className="bg-white dark:bg-[var(--platinum-50)] rounded-lg p-4 md:p-5 shadow border border-zinc-200 flex flex-col gap-3 hover:bg-[var(--platinum-200)] transition-shadow h-full"
                   >
