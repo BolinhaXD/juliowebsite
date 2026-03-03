@@ -10,7 +10,7 @@ export default function MyFooter() {
           {/* Logo e tagline */}
           <div className="sm:col-span-1">
             <Link href="/" className="inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded">
-              <Image src="/logo4.png" alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
+              <Image src="/Logo4.png" alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
             </Link>
             <p className="text-zinc-400 text-xs mt-2 max-w-[180px]">
               Construímos confiança.
