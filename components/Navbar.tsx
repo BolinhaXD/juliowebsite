@@ -1,25 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
-/** Logo path that works on every page (home, /portefolio, /portefolio/1). */
-function useLogoSrc() {
-  const pathname = usePathname();
-  const [logoSrc, setLogoSrc] = useState("Logo4.png");
-  useEffect(() => {
-    const base = typeof window !== "undefined" ? window.location.origin + (process.env.NEXT_PUBLIC_BASE_PATH || "") : "";
-    setLogoSrc(`${base}/Logo4.png`);
-  }, [pathname]);
-  return logoSrc;
-}
-
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const logoSrc = useLogoSrc();
 
   const isPortfolio = pathname.startsWith(routes.portefolio);
   const isHome = pathname === "/";
@@ -37,7 +25,7 @@ export default function Navbar() {
         {/* Logo on the left */}
         <div className="py-4">
           <Link href="/" className="block w-[100px]">
-            <img src={logoSrc} alt="My Logo" className="h-auto w-full" width={100} height={80} />
+            <img src="Logo4.png" alt="My Logo" className="h-auto w-full" width={100} height={80} />
           </Link>
         </div>
 

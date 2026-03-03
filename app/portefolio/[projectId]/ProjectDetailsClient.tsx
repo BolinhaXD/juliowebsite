@@ -31,7 +31,6 @@ export default function ProjectDetailsClient({ projectId }: Props) {
   }
 
   const hasGallery = project.images && project.images.length > 0;
-  const getRelativeSrc = (path: string) => `../${path.replace(/^\/+/, "")}`;
 
   return (
     <div className="flex min-h-screen flex-col font-sans bg-[var(--platinum-50)] dark:bg-[var(--platinum-50)] text-zinc-900 dark:text-zinc-50">
@@ -73,7 +72,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
                 <SwiperSlide key={index} className="!w-full min-w-0">
                   <div className="relative w-full aspect-[4/3] min-h-[200px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[400px] bg-zinc-100">
                     <Image
-                      src={getRelativeSrc(src)}
+                      src={src}
                       alt={`${project.title} – imagem ${index + 1}`}
                       fill
                       className="object-cover"
@@ -90,7 +89,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
             <div className="bg-[var(--platinum-100)] dark:bg-[var(--platinum-100)] rounded-lg shadow border border-zinc-200 overflow-hidden">
               <div className="relative w-full aspect-[4/3] min-h-[240px] bg-zinc-100">
                 <Image
-                  src={getRelativeSrc(project.imgAntesSrc)}
+                  src={project.imgAntesSrc}
                   alt={`${project.title} – antes`}
                   fill
                   className="object-cover"
@@ -105,7 +104,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
             <div className="bg-white dark:bg-[var(--platinum-100)] rounded-lg shadow border border-zinc-200 overflow-hidden">
               <div className="relative w-full aspect-[4/3] min-h-[240px] bg-zinc-100">
                 <Image
-                  src={getRelativeSrc(project.imgDepoisSrc)}
+                  src={project.imgDepoisSrc}
                   alt={`${project.title} – depois`}
                   fill
                   className="object-cover"
