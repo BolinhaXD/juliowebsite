@@ -12,6 +12,8 @@ export default function Navbar() {
 
   const isPortfolio = pathname.startsWith(routes.portefolio);
   const isHome = pathname === "/";
+  const pathDepth = pathname.split("/").filter(Boolean).length;
+  const logoSrc = pathDepth === 0 ? "Logo4.png" : "../".repeat(pathDepth) + "Logo4.png";
 
   const baseNavLinkClasses =
     "relative text-[var(--jet-black-800)] text-2xl font-medium pb-1 transition-colors hover:text-[var(--jet-black-400)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[var(--jet-black-800)] after:transition-all after:duration-300 after:w-0 hover:after:w-full";
@@ -26,7 +28,7 @@ export default function Navbar() {
         {/* Logo on the left */}
         <div className="py-4">
           <Link href="/">
-            <Image src="Logo4.png" alt="My Logo" width={100} height={80} />
+            <Image src={logoSrc} alt="My Logo" width={100} height={80} />
           </Link>
         </div>
 
