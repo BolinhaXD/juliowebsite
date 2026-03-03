@@ -25,7 +25,7 @@ export default function Navbar() {
         {/* Logo on the left */}
         <div className="py-4">
           <Link href="/">
-            <Image src="/Logo4.png" alt="My Logo" width={100} height={80} />
+            <Image src="Logo4.png" alt="My Logo" width={100} height={80} />
           </Link>
         </div>
 
