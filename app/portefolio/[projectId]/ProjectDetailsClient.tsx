@@ -81,7 +81,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
                 <SwiperSlide key={index} className="!w-full min-w-0">
                   <div className="relative w-full aspect-[4/3] min-h-[200px] sm:min-h-[280px] md:min-h-[360px] lg:min-h-[400px] bg-zinc-100">
                     <Image
-                      src={getSrc(src)}
+                      src={src}
                       alt={`${project.title} – imagem ${index + 1}`}
                       fill
                       className="object-cover"
