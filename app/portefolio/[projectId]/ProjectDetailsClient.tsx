@@ -6,9 +6,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import MyFooter from "../../../components/MyFooter";
-import Contacts from "../../../components/Contacts";
-import Navbar from "../../../components/Navbar";
 import { antesDepoisImages } from "../../../data/antesdepoisImages";
 
 type Props = { projectId: string };
@@ -35,16 +32,11 @@ export default function ProjectDetailsClient({ projectId }: Props) {
 
   if (!project) {
     return (
-      <div className="flex min-h-screen flex-col font-sans bg-[var(--platinum-50)] dark:bg-[var(--platinum-50)] text-zinc-900 dark:text-zinc-50">
-        <Navbar />
-        <div className="max-w-6xl mx-auto py-60 px-6 text-center">
-          <h1 className="text-[var(--jet-black-800)] text-3xl md:text-5xl font-bold mb-4">
-            Erro 404
-          </h1>
-          <p className="text-zinc-600">Página não encontrada.</p>
-        </div>
-        <Contacts />
-        <MyFooter />
+      <div className="max-w-6xl mx-auto py-60 px-6 text-center">
+        <h1 className="text-[var(--jet-black-800)] text-3xl md:text-5xl font-bold mb-4">
+          Erro 404
+        </h1>
+        <p className="text-zinc-600">Página não encontrada.</p>
       </div>
     );
   }
@@ -52,9 +44,7 @@ export default function ProjectDetailsClient({ projectId }: Props) {
   const hasGallery = project.images && project.images.length > 0;
 
   return (
-    <div className="flex min-h-screen flex-col font-sans bg-[var(--platinum-50)] dark:bg-[var(--platinum-50)] text-zinc-900 dark:text-zinc-50">
-      <Navbar />
-
+    <>
       <section className="bg-[var(--platinum-100)] dark:bg-[var(--platinum-100)] text-zinc-900">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <span className="inline-flex items-center rounded-full bg-[var(--platinum-300)] px-3 py-1 text-xs font-medium text-[var(--jet-black-800)] whitespace-nowrap">
@@ -152,9 +142,6 @@ export default function ProjectDetailsClient({ projectId }: Props) {
           </div>
         </div>
       </section>
-
-      <Contacts />
-      <MyFooter />
-    </div>
+    </>
   );
 }

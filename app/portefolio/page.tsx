@@ -1,9 +1,6 @@
 "use client"
 import { useState } from "react";
 import Image from "next/image";
-import MyFooter from "../../components/MyFooter";
-import Contacts from "../../components/Contacts";
-import Navbar from "../../components/Navbar";
 import { antesDepoisImages } from "../../data/antesdepoisImages"
 import Link from "next/link";
 import { routes } from "../../constants/routes";
@@ -30,10 +27,7 @@ export default function Home() {
   const projectsToShow = filteredProjects.slice(0, visibleCount);
   const canShowMore = filteredProjects.length > visibleCount;
   return (
-    <div className="flex min-h-screen flex-col font-sans bg-[var(--platinum-50)] dark:bg-[var(--platinum-50)] text-zinc-900 dark:text-zinc-50">
-
-      <Navbar />
-
+    <>
       {/* Projects: Antes / Depois */}
       <section
         id="projects"
@@ -139,12 +133,6 @@ export default function Home() {
           )}
         </div>
       </section>
-
-      {/* Contact Section */}
-      <Contacts />
-
-      {/* Large Footer */}
-      <MyFooter />
-    </div>
+    </>
   );
 }

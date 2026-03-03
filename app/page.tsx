@@ -1,15 +1,9 @@
 "use client"
 import ImageSlider from "../components/ImageSlider";
-import MyFooter from "../components/MyFooter";
-import Contacts from "../components/Contacts";
-import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col font-sans bg-[var(--platinum-50)] dark:bg-[var(--platinum-50)] text-zinc-900 dark:text-zinc-50">
-
-      <Navbar />
-
+    <>
       {/* Full viewport width so background runs edge to edge */}
       <section className="w-screen max-w-none relative left-1/2 -translate-x-1/2 bg-[var(--platinum-100)]">
         <div className="flex flex-col items-center justify-center text-center sm:text-left">
@@ -139,12 +133,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Contact Section */}
-      <Contacts />
-
-      {/* Large Footer */}
-      <MyFooter />
-    </div>
+    </>
   );
 }
