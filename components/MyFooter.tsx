@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
@@ -16,7 +15,7 @@ export default function MyFooter() {
           {/* Logo e tagline */}
           <div className="sm:col-span-1">
             <Link href="/" className="inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded">
-              <Image src={logoSrc} alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
+              <img src={logoSrc} alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
             </Link>
             <p className="text-zinc-400 text-xs mt-2 max-w-[180px]">
               Construímos confiança.

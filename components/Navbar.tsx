@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
@@ -27,8 +26,8 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-4">
         {/* Logo on the left */}
         <div className="py-4">
-          <Link href="/">
-            <Image src={logoSrc} alt="My Logo" width={100} height={80} />
+          <Link href="/" className="block w-[100px]">
+            <img src={logoSrc} alt="My Logo" className="h-auto w-full" width={100} height={80} />
           </Link>
         </div>
 
