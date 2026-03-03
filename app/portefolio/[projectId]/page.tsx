@@ -1,11 +1,13 @@
 import { antesDepoisImages } from "../../../data/antesdepoisImages";
 import ProjectDetailsClient from "./ProjectDetailsClient";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return antesDepoisImages.map((p) => ({
     projectId: String(p.id),
   }));
 }
+
+export const dynamicParams = false;
 
 type Props = {
   params: Promise<{ projectId: string }>;
