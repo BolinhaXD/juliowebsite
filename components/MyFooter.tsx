@@ -24,11 +24,11 @@ function useBasePath() {
   return basePath;
 }
 
-/** Logo path: use ../ so it resolves from portefolio (and nested) back to root. */
+/** Logo path: only use ../ on project pages (portefolio/1, portefolio/2); on / and /portefolio use Logo4.png. */
 function useLogoSrc() {
   const pathname = usePathname();
   const segs = pathname.split("/").filter(Boolean);
-  return segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`;
+  return segs.length >= 2 ? `${segs.map(() => "..").join("/")}/Logo4.png` : "Logo4.png";
 }
 
 export default function MyFooter() {
