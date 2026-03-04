@@ -24,21 +24,11 @@ function useBasePath() {
   return basePath;
 }
 
-/** Logo path using real browser path (includes basePath) so it works on dynamic pages and GitHub Pages. */
+/** Logo path: use ../ so it resolves from portefolio (and nested) back to root. */
 function useLogoSrc() {
   const pathname = usePathname();
-  const [logoSrc, setLogoSrc] = useState(() => {
-    const segs = pathname.split("/").filter(Boolean);
-    return segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`;
-  });
-
-  useEffect(() => {
-    const path = typeof window !== "undefined" ? window.location.pathname : pathname;
-    const segs = path.split("/").filter(Boolean);
-    setLogoSrc(segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`);
-  }, [pathname]);
-
-  return logoSrc;
+  const segs = pathname.split("/").filter(Boolean);
+  return segs.length === 0 ? "Logo4.png" : `${segs.map(() => "..").join("/")}/Logo4.png`;
 }
 
 export default function MyFooter() {
