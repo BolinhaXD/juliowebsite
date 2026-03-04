@@ -5,6 +5,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
+/** Base path when app is under a subpath (e.g. /juliowebsite). Used for anchor and logo links. */
+function useBasePath() {
+  const pathname = usePathname();
+  const [basePath, setBasePath] = useState("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const envBase = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    if (envBase) {
+      setBasePath(envBase.replace(/\/$/, ""));
+      return;
+    }
+    const full = window.location.pathname || "";
+    const base = pathname === "/" ? full.replace(/\/$/, "") : full.slice(0, -pathname.length).replace(/\/$/, "");
+    setBasePath(base || "");
+  }, [pathname]);
+
+  return basePath;
+}
+
 /** Logo path that works on all pages, including with basePath (e.g. GitHub Pages /repo-name/). */
 function useLogoSrc() {
   const pathname = usePathname();
@@ -25,6 +45,7 @@ function useLogoSrc() {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const basePath = useBasePath();
   const logoSrc = useLogoSrc();
 
   const isPortfolio = pathname.startsWith(routes.portefolio);
@@ -33,9 +54,10 @@ export default function Navbar() {
   const baseNavLinkClasses =
     "relative text-[var(--jet-black-800)] text-2xl font-medium pb-1 transition-colors hover:text-[var(--jet-black-400)] after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[var(--jet-black-800)] after:transition-all after:duration-300 after:w-0 hover:after:w-full";
 
-  const servicesHref = isHome ? "#services" : "/#services";
-  const aboutHref = isHome ? "#about" : "/#about";
-  const contactHref = isHome ? "#contact" : "/#contact";
+  const homePath = basePath ? `${basePath}/` : "/";
+  const servicesHref = isHome ? "#services" : `${homePath}#services`;
+  const aboutHref = isHome ? "#about" : `${homePath}#about`;
+  const contactHref = isHome ? "#contact" : `${homePath}#contact`;
 
   return (
     <header className="w-full shadow-none relative">
@@ -43,7 +65,7 @@ export default function Navbar() {
         {/* Logo on the left */}
         <div className="py-4">
           <Link href="/" className="block w-[100px]">
-            <img src="Logo4.png" alt="My Logo" className="h-auto w-full" width={100} height={80} />
+            <img src={logoSrc} alt="My Logo" className="h-auto w-full" width={100} height={80} />
           </Link>
         </div>
 
@@ -62,8 +84,8 @@ export default function Navbar() {
             </a>
             <Link
               href={routes.portefolio}
-              className={`${baseNavLinkClasses} ${
-                isPortfolio ? "after:w-full" : ""
+              className={`rounded-full px-4 py-2 text-xl font-medium text-white bg-[var(--jet-black-800)] hover:bg-[var(--jet-black-600)] transition-colors shadow-sm ${
+                isPortfolio ? "ring-2 ring-[var(--jet-black-800)] ring-offset-2 ring-offset-[var(--platinum-50)]" : ""
               }`}
             >
               Portefólio
@@ -137,7 +159,7 @@ export default function Navbar() {
             <Link
               onClick={() => setMenuOpen(false)}
               href={routes.portefolio}
-              className="text-xl font-medium text-[var(--jet-black-800)] hover:text-[var(--jet-black-600)] transition-colors"
+              className="text-xl font-medium text-white bg-[var(--jet-black-800)] hover:bg-[var(--jet-black-600)] rounded-full px-5 py-2.5 transition-colors w-full text-center"
             >
               Portefólio
             </Link>

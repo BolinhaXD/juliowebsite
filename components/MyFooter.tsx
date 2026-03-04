@@ -4,6 +4,26 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { routes } from "../constants/routes";
 
+/** Base path when app is under a subpath (e.g. /juliowebsite). */
+function useBasePath() {
+  const pathname = usePathname();
+  const [basePath, setBasePath] = useState("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const envBase = process.env.NEXT_PUBLIC_BASE_PATH || "";
+    if (envBase) {
+      setBasePath(envBase.replace(/\/$/, ""));
+      return;
+    }
+    const full = window.location.pathname || "";
+    const base = pathname === "/" ? full.replace(/\/$/, "") : full.slice(0, -pathname.length).replace(/\/$/, "");
+    setBasePath(base || "");
+  }, [pathname]);
+
+  return basePath;
+}
+
 /** Logo path using real browser path (includes basePath) so it works on dynamic pages and GitHub Pages. */
 function useLogoSrc() {
   const pathname = usePathname();
@@ -22,7 +42,9 @@ function useLogoSrc() {
 }
 
 export default function MyFooter() {
+  const basePath = useBasePath();
   const logoSrc = useLogoSrc();
+  const homePath = basePath ? `${basePath}/` : "/";
 
   return (
     <footer className="w-full bg-[var(--jet-black-900)] text-white mt-auto">
@@ -31,7 +53,7 @@ export default function MyFooter() {
           {/* Logo e tagline */}
           <div className="sm:col-span-1">
             <Link href="/" className="inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded">
-              <img src="Logo4.png" alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
+              <img src={logoSrc} alt="Julio Remodelações" width={128} height={48} className="h-auto w-32" />
             </Link>
             <p className="text-zinc-400 text-xs mt-2 max-w-[180px]">
               Construímos confiança.
@@ -43,19 +65,19 @@ export default function MyFooter() {
             <h4 className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-2">Empresa</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/#about" className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
+                <a href={`${homePath}#about`} className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
                   Sobre nós
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/#services" className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
+                <a href={`${homePath}#services`} className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
                   Serviços
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/#contact" className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
+                <a href={`${homePath}#contact`} className="text-zinc-300 hover:text-white transition-colors text-xs sm:text-sm">
                   Contactos
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
