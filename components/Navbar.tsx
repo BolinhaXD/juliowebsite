@@ -25,11 +25,11 @@ function useBasePath() {
   return basePath;
 }
 
-/** Logo path: only use ../ on project pages (portefolio/1, portefolio/2); on / and /portefolio use Logo4.png. */
+/** Logo path: on project pages (portefolio/1, etc.) use ../Logo4.png; on / and /portefolio use Logo4.png. */
 function useLogoSrc() {
   const pathname = usePathname();
   const segs = pathname.split("/").filter(Boolean);
-  return segs.length >= 2 ? `${segs.map(() => "..").join("/")}/Logo4.png` : "Logo4.png";
+  return segs.length >= 2 ? "../Logo4.png" : "Logo4.png";
 }
 
 export default function Navbar() {
